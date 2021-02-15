@@ -99,10 +99,23 @@ namespace workday2Excel
             }
             foreach (var igDay in igDays)
             {
-                int day = Convert.ToInt32(igDay);
-                var date = new DateTime(year, month, day).ToString("yyyy-MM-dd");
-                if (workdayList.Contains(date))
-                    workdayList.Remove(date);
+                try
+                {
+                    int day = Int32.Parse(igDay);
+                    var date = new DateTime(year, month, day).ToString("yyyy-MM-dd");
+                    if (workdayList.Contains(date))
+                        workdayList.Remove(date);
+                }
+                catch
+                {
+                    if (igDay != "")
+                    {
+                        MessageBox.Show("제외할 날짜가 올바르지 않습니다.\n정상적인 날짜의 숫자를 입력해주십시오.", "경고", MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    }
+                    else if (igDay == "")
+                        break;
+                }
             }
             return workdayList;
         }
