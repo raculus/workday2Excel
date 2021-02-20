@@ -1,9 +1,6 @@
 ﻿using Nager.Date;
-using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 
@@ -24,62 +21,9 @@ namespace workday2Excel
             var year = textbox_Year.Text;
             var month = textbox_Month.Text;
             var days = textbox_ignoreList.Text;
-            var list = workDay(year, month, days);
-            string filename = year + "년 평일.xlsx";
-            writeExcel(list, filename, year, month, true);
-            writeExcel(list, filename, year, month, false);
-            if (MessageBox.Show("완료되었습니다.\n파일을 여시겠습니까?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                Process.Start(filename);
+            win_copy win = new win_copy(workDay(year, month, days));
+            win.ShowDialog();
         }
-        private void writeExcel(List<string> list, string filename, string year, string month, bool vertical)
-        {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var fi = new FileInfo(filename);
-            int row = 2;
-            int col = 1;
-            if (vertical)
-            {
-                row = 1;
-                col = 2;
-            }
-            string sheetname = year + "-" + month;
-            using (ExcelPackage package = new ExcelPackage(fi))
-            {
-                var wb = package.Workbook;
-                ExcelWorksheet ws;
-                if (hasWorksheet(filename, sheetname))
-                    ws = package.Workbook.Worksheets[sheetname];
-                else
-                    ws = package.Workbook.Worksheets.Add(sheetname);
-                foreach (var str in list)
-                {
-                    ws.Cells[row, col].Value = str;
-
-                    if (vertical)
-                        row++;
-                    else
-                        col++;
-                }
-                package.Save();
-            }
-        }
-        private bool hasWorksheet(string filepath, string sheetname)
-        {
-            var fi = new FileInfo(filepath);
-            using (ExcelPackage package = new ExcelPackage(fi))
-            {
-                var wb = package.Workbook;
-                foreach (var sheet in wb.Worksheets)
-                {
-                    if (sheet.Name.Equals(sheetname))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
         private List<string> workDay(string strYear, string strMonth, string days)
         {
             int year = Convert.ToInt32(strYear);
@@ -110,7 +54,7 @@ namespace workday2Excel
                 {
                     if (igDay != "")
                     {
-                        MessageBox.Show("제외할 날짜가 올바르지 않습니다.\n정상적인 날짜의 숫자를 입력해주십시오.", "경고", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("제외할 날짜가 올바르지 않습니다.\n정상적인 날짜의 숫자를 입력해주십시오.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
                         break;
                     }
                     else if (igDay == "")
