@@ -83,7 +83,7 @@ namespace workday2Excel
         {
             if (Properties.Settings.Default.firstRun == true)
             {
-                MessageBox.Show("주말, 공휴일, 대체공휴일을 제외한 평일을 엑셀파일로 만들어줍니다.\n선거일같은 규칙없는 휴일은 수동추가 바랍니다.", "도움말");
+                MessageBox.Show("주말, 공휴일, 대체공휴일을 제외한 평일 텍스트를 만들어줍니다.\n선거일같은 규칙없는 휴일은 수동추가 바랍니다.", "도움말");
                 Properties.Settings.Default.firstRun = false;
                 Properties.Settings.Default.Save();
             }
@@ -116,7 +116,7 @@ namespace workday2Excel
 
         private void button_Help_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("주말, 공휴일, 대체공휴일을 제외한 평일을 엑셀파일로 만들어줍니다.\n선거일같은 규칙없는 휴일은 수동추가 바랍니다.", "도움말");
+            MessageBox.Show("주말, 공휴일, 대체공휴일을 제외한 평일 텍스트를 만들어줍니다.\n선거일같은 규칙없는 휴일은 수동추가 바랍니다.", "도움말");
         }
     }
 }

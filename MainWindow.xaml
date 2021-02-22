@@ -26,7 +26,7 @@
             </Grid>
             <Grid Height="54" Margin="10,0,0,0" HorizontalAlignment="Left" Width="164">
                 <Button x:Name="button_Generate" Content="생성" Margin="0,11,10,11" Height="32"
-                Style="{StaticResource ButtonRevealStyle}" Cursor="Hand" Foreground="{DynamicResource SystemBaseHighColorBrush}" Click="button_Generate_Click"/>
+                Style="{StaticResource ButtonRevealStyle}" Cursor="Hand" Foreground="{DynamicResource SystemBaseHighColorBrush}" Click="button_Generate_Click" IsDefault="True"/>
             </Grid>
             <Grid Height="55" Margin="10,0">
                 <Button x:Name="button_Help" Content="도움말" Margin="0,11,10,11" Height="32"

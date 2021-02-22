@@ -75,9 +75,6 @@
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.IO.RecyclableMemoryStream.1.4.0\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
-    <Reference Include="ModernWpf.Controls, Version=0.9.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ModernWpfUI.0.9.3\lib\net45\ModernWpf.Controls.dll</HintPath>
-    </Reference>
     <Reference Include="Nager.Date, Version=1.28.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Nager.Date.1.28.1\lib\net45\Nager.Date.dll</HintPath>
     </Reference>
