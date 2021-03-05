@@ -32,7 +32,7 @@ namespace workday2Excel
             int lastDay = DateTime.DaysInMonth(year, month);
             List<string> workdayList = new List<string>();
 
-            for (int day = 1; day < lastDay; day++)
+            for (int day = 1; day < lastDay+1; day++)
             {
                 var date = new DateTime(year, month, day);
                 if (DateSystem.IsPublicHoliday(date, CountryCode.KR))
