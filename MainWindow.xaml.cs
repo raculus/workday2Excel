@@ -18,16 +18,11 @@ namespace workday2Excel
 
         private void button_Generate_Click(object sender, RoutedEventArgs e)
         {
-            var year = textbox_Year.Text;
-            var month = textbox_Month.Text;
-            var days = textbox_ignoreList.Text;
-            win_copy win = new win_copy(workDay(year, month, days));
-            win.ShowDialog();
         }
-        private List<string> workDay(string strYear, string strMonth, string days)
+        private List<string> workDay(DateTime dt, string days)
         {
-            int year = Convert.ToInt32(strYear);
-            int month = Convert.ToInt32(strMonth);
+            int year = dt.Year;
+            int month = dt.Month;
             var igDays = days.Split(' ');
             int lastDay = DateTime.DaysInMonth(year, month);
             List<string> workdayList = new List<string>();
@@ -81,25 +76,16 @@ namespace workday2Excel
 
         private void AcrylicWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Properties.Settings.Default.firstRun == true)
-            {
-                MessageBox.Show("주말, 공휴일, 대체공휴일을 제외한 평일 텍스트를 만들어줍니다.\n선거일같은 규칙없는 휴일은 수동추가 바랍니다.", "도움말");
-                Properties.Settings.Default.firstRun = false;
-                Properties.Settings.Default.Save();
-            }
+            datePicker.SelectedDate = DateTime.Now.AddMonths(1);    //올해 다음달 설정
+            var date = (DateTime)datePicker.SelectedDate;
+            label_date.Content = date.ToString("yyyy년MM월"); //라벨 수정
+
+            /* 이전 창 위치 복원 */
             var location = Properties.Settings.Default.location;
             this.Left = location.X;
             this.Top = location.Y;
 
-            textbox_Year.MaxLength = 4;
-            textbox_Month.MaxLength = 2;
-
-            var now = System.DateTime.Now;
-            string year = now.ToString("yyyy");
-            string month = now.AddMonths(+1).ToString("MM");
-
-            textbox_Year.Text = year;
-            textbox_Month.Text = month;
+            refresh_workdays();
         }
 
         private void AcrylicWindow_Closed(object sender, EventArgs e)
@@ -117,6 +103,33 @@ namespace workday2Excel
         private void button_Help_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("주말, 공휴일, 대체공휴일을 제외한 평일 텍스트를 만들어줍니다.\n선거일같은 규칙없는 휴일은 수동추가 바랍니다.", "도움말");
+        }
+
+        private void datePicker_CalendarClosed(object sender, RoutedEventArgs e)
+        {
+            var date = (DateTime)datePicker.SelectedDate;
+            label_date.Content = date.ToString("yyyy년MM월");
+
+            refresh_workdays();
+        }
+
+        private void refresh_workdays()
+        {
+            var date = (DateTime)datePicker.SelectedDate;
+            var workList = workDay(date, textbox_ignoreList.Text);
+            label_workCount.Content = String.Format("평일: {0}개", workList.Count);
+            textbox_H.Text = String.Join("	", workList);   //탭문자
+            textbox_V.Text = String.Join("\n\r", workList);   //개행
+        }
+
+        private void button_CopyH_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(textbox_H.Text);
+        }
+
+        private void button_CopyV_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(textbox_V.Text);
         }
     }
 }
