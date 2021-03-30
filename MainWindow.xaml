@@ -18,8 +18,8 @@
             <Label x:Name="label_date" Content="3월" Margin="10,0,10,10" Foreground="{DynamicResource SystemBaseHighColorBrush}" FontSize="18"/>
             <Grid Height="76" Margin="10,0">
                 <Label Content="제외할 날짜(공백 구분)" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
-                <TextBox x:Name="textbox_ignoreList" HorizontalAlignment="Left" Margin="0,34,0,10" Text="" Width="135"
-             Style="{StaticResource TextBoxRevealStyle}" Cursor="IBeam" TextAlignment="Right" PreviewTextInput="textbox_ignoreList_PreviewTextInput"/>
+                <TextBox x:Name="textbox_ignoreList" HorizontalAlignment="Left" Margin="0,34,0,10" Text="" Width="135" InputMethod.PreferredImeState="Off"
+             Style="{StaticResource TextBoxRevealStyle}" Cursor="IBeam" TextAlignment="Right" PreviewTextInput="textbox_ignoreList_PreviewTextInput" TextChanged="textbox_ignoreList_TextChanged"/>
                 <Label Content="일" Margin="140,36,10,11" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
             </Grid>
             <Grid Height="55" Margin="10,10,0,0" >
